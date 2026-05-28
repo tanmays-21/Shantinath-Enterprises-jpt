@@ -1,29 +1,21 @@
 export default function SearchBar({
   search,
   onSearch,
-  filter,
-  onFilter,
 }) {
-  const filters = [
-    { id: 'all', label: 'All' },
-    { id: 'inStock', label: 'In Stock' },
-    { id: 'outOfStock', label: 'Out of Stock' },
-  ]
-
   return (
     <div className="flex flex-col sm:flex-row gap-3">
-      
-      {/* Search input */}
+
+      {/* Search Input */}
       <div className="relative flex-1">
-        
-        {/* Search icon */}
+
+        {/* Search Icon */}
         <div className="absolute inset-y-0 left-3.5 flex items-center pointer-events-none">
           <svg
             className={`w-4 h-4 transition-all ${
-  search
-    ? 'text-cyan-400 drop-shadow-[0_0_6px_rgba(34,211,238,0.6)]'
-    : 'text-white/25'
-}`}
+              search
+                ? 'text-cyan-400 drop-shadow-[0_0_6px_rgba(34,211,238,0.6)]'
+                : 'text-white/25'
+            }`}
             fill="none"
             viewBox="0 0 24 24"
             stroke="currentColor"
@@ -49,14 +41,14 @@ export default function SearchBar({
             }
           }}
           placeholder="Search by part name or number…"
-          className="w-full bg-white/[0.04] border border-white/[0.08] rounded-xl pl-10 pr-4 py-2.5 text-white placeholder-white/20 text-sm focus:outline-none focus:border-emerald-500/40 focus:bg-white/[0.06] transition-all"
+          className="w-full bg-[#071120] border border-cyan-500/10 rounded-xl pl-10 pr-10 py-3 text-white placeholder-white/25 text-base sm:text-sm backdrop-blur-xl focus:outline-none focus:border-cyan-500/40 focus:bg-[#0b1628] transition-all shadow-lg shadow-black/20"
         />
 
-        {/* Clear button */}
+        {/* Clear Button */}
         {search && (
           <button
             onClick={() => onSearch('')}
-className="absolute inset-y-0 right-3 flex items-center text-white/25 hover:text-cyan-300 hover:scale-110 transition-all"
+            className="absolute inset-y-0 right-3 flex items-center text-white/25 hover:text-cyan-300 hover:scale-110 transition-all"
           >
             <svg
               className="w-4 h-4"
@@ -73,23 +65,6 @@ className="absolute inset-y-0 right-3 flex items-center text-white/25 hover:text
             </svg>
           </button>
         )}
-      </div>
-
-      {/* Filter pills */}
-      <div className="flex gap-1.5 bg-white/[0.03] border border-white/[0.06] rounded-xl p-1">
-        {filters.map((f) => (
-          <button
-            key={f.id}
-            onClick={() => onFilter(f.id)}
-            className={`flex-1 sm:flex-none px-3 py-1.5 rounded-lg text-xs font-medium transition-all whitespace-nowrap ${
-              filter === f.id
-                ? 'bg-white/[0.10] text-white shadow-sm'
-                : 'text-white/30 hover:text-white/60 hover:bg-white/[0.04]'
-            }`}
-          >
-            {f.label}
-          </button>
-        ))}
       </div>
     </div>
   )

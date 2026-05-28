@@ -178,7 +178,7 @@ export default function App() {
       <main className="max-w-7xl mx-auto px-4 sm:px-6 py-6 space-y-5">
 
         {/* SEARCH + CATEGORY */}
-        <div className="sticky top-[92px] z-20 -mx-4 sm:-mx-6 px-4 sm:px-6 py-4 bg-black/30 backdrop-blur-xl border-b border-cyan-500/10 space-y-4">
+        <div className="sticky top-[92px] z-20 -mx-4 sm:-mx-6 px-4 sm:px-6 py-4 bg-[#050816]/95 backdrop-blur-xl border-b border-cyan-500/10 space-y-4">
 
           {/* SEARCH */}
           <SearchBar
