@@ -69,15 +69,26 @@ export default function App() {
   const filtered = useMemo(() => {
     let result = [...products]
 
+    // NORMALIZE SEARCH
+    const normalize = (text) =>
+      (text || '')
+        .toString()
+        .toLowerCase()
+        .replace(/[-\s]/g, '')
+
     // SEARCH
     if (search.trim()) {
-      const q = search.trim().toLowerCase()
+      const q = normalize(search)
 
-      result = result.filter(
-        (p) =>
-          p.product_name?.toLowerCase().includes(q) ||
-          p.part_no?.toLowerCase().includes(q)
-      )
+      result = result.filter((p) => {
+        const productName = normalize(p.product_name)
+        const partNo = normalize(p.part_no)
+
+        return (
+          productName.includes(q) ||
+          partNo.includes(q)
+        )
+      })
     }
 
     // CATEGORY FILTER
@@ -133,11 +144,11 @@ export default function App() {
           {/* LEFT */}
           <div className="flex items-center gap-4">
 
-            <div className="glass-card rounded-2xl p-2 blue-glow">
+           <div className="glass-card rounded-xl p-2">
               <img
                 src="/LOGO.jpg"
-                alt="Shantinath Enterprise"
-                className="w-14 h-14 object-contain"
+                alt="SE"
+                className="w-10 h-10 object-contain"
               />
             </div>
 

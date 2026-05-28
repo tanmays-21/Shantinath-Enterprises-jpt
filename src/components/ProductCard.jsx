@@ -1,11 +1,12 @@
-export default function ProductCard({ product, index }) {
-
+import React, { useState,memo } from 'react'
+function ProductCard({ product, index }) {
+const [copied, setCopied] = useState(false)
   const inStock = Number(product.remaining || 0) > 0
 
   return (
     <div
       className={`
-        group relative rounded-3xl border p-5 transition-all duration-300 cursor-default
+        group relative rounded-3xl border p-5 transition-all duration-300 hover:-translate-y-1 cursor-default
         animate-slide-up overflow-hidden backdrop-blur-xl
         ${
           inStock
@@ -32,14 +33,19 @@ export default function ProductCard({ product, index }) {
 
           <div className="flex-1">
 
-            <h3
-              className={`
-                text-[15px] sm:text-base font-semibold leading-snug tracking-wide
-                ${inStock ? 'text-white' : 'text-white/35'}
-              `}
-            >
-              {product.product_name}
-            </h3>
+    <div className="flex items-start justify-between gap-3">
+  
+  <div className="space-y-1">
+    <h3 className="text-white font-semibold leading-tight">
+      {product.product_name}
+    </h3>
+
+    <div className="inline-flex items-center px-2 py-1 rounded-lg bg-cyan-500/10 border border-cyan-500/20 text-cyan-300 text-[11px] font-medium tracking-wide uppercase">
+      {product.category || 'OTHER PARTS'}
+    </div>
+  </div>
+
+</div>
 
             <div className="mt-3 flex items-center gap-2">
 
@@ -57,7 +63,27 @@ export default function ProductCard({ product, index }) {
                   }
                 `}
               >
-                {product.part_no || 'N/A'}
+               <button
+  onClick={() => {
+    navigator.clipboard.writeText(product.part_no || '')
+
+    setCopied(true)
+
+    setTimeout(() => {
+      setCopied(false)
+    }, 1500)
+  }}
+  className="relative text-cyan-300 hover:text-cyan-200 active:scale-95 transition-all font-mono text-sm"
+  title="Click to copy"
+>
+  {product.part_no || 'N/A'}
+
+  {copied && (
+    <span className="absolute -top-7 left-1/2 -translate-x-1/2 whitespace-nowrap px-2 py-1 rounded-lg bg-cyan-500 text-white text-[10px] shadow-lg">
+      Copied!
+    </span>
+  )}
+</button>
               </code>
             </div>
           </div>
@@ -92,3 +118,5 @@ export default function ProductCard({ product, index }) {
     </div>
   )
 }
+
+export default React.memo(ProductCard)

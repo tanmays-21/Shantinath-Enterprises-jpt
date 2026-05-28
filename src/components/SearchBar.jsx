@@ -1,4 +1,9 @@
-export default function SearchBar({ search, onSearch, filter, onFilter }) {
+export default function SearchBar({
+  search,
+  onSearch,
+  filter,
+  onFilter,
+}) {
   const filters = [
     { id: 'all', label: 'All' },
     { id: 'inStock', label: 'In Stock' },
@@ -7,27 +12,64 @@ export default function SearchBar({ search, onSearch, filter, onFilter }) {
 
   return (
     <div className="flex flex-col sm:flex-row gap-3">
+      
       {/* Search input */}
       <div className="relative flex-1">
+        
+        {/* Search icon */}
         <div className="absolute inset-y-0 left-3.5 flex items-center pointer-events-none">
-          <svg className="w-4 h-4 text-white/25" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-            <path strokeLinecap="round" strokeLinejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+          <svg
+            className={`w-4 h-4 transition-all ${
+  search
+    ? 'text-cyan-400 drop-shadow-[0_0_6px_rgba(34,211,238,0.6)]'
+    : 'text-white/25'
+}`}
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+            strokeWidth={2}
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
+            />
           </svg>
         </div>
+
+        {/* Input */}
         <input
           type="text"
           value={search}
           onChange={(e) => onSearch(e.target.value)}
+          onKeyDown={(e) => {
+            if (e.key === 'Enter') {
+              e.preventDefault()
+              e.target.blur()
+            }
+          }}
           placeholder="Search by part name or number…"
           className="w-full bg-white/[0.04] border border-white/[0.08] rounded-xl pl-10 pr-4 py-2.5 text-white placeholder-white/20 text-sm focus:outline-none focus:border-emerald-500/40 focus:bg-white/[0.06] transition-all"
         />
+
+        {/* Clear button */}
         {search && (
           <button
             onClick={() => onSearch('')}
-            className="absolute inset-y-0 right-3 flex items-center text-white/25 hover:text-white/50 transition-colors"
+className="absolute inset-y-0 right-3 flex items-center text-white/25 hover:text-cyan-300 hover:scale-110 transition-all"
           >
-            <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-              <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
+            <svg
+              className="w-4 h-4"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+              strokeWidth={2}
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                d="M6 18L18 6M6 6l12 12"
+              />
             </svg>
           </button>
         )}
